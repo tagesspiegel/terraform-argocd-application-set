@@ -1,0 +1,26 @@
+changelog:
+  exclude:
+    authors:
+      - dependabot[bot]
+  categories:
+    - title: New Features 🎉
+      labels:
+        - feature
+    - title: Refactors 🛠
+      labels:
+        - refactor
+    - title: Enhancements 🚀
+      labels:
+        - chore
+    - title: Bug Fixes 🐛
+      labels:
+        - fix
+    - title: Documentation 📚
+      labels:
+        - documentation
+    - title: Breaking Changes 💥
+      labels:
+        - breaking-change
+    - title: Other Changes
+      labels:
+        - "*"

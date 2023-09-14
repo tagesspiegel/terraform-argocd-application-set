@@ -115,9 +115,9 @@ resource "argocd_application_set" "this" {
           dynamic "automated" {
             for_each = var.sync_policy != null ? [var.sync_policy] : []
             content {
-              prune       = var.sync_policy.automated.prune
-              self_heal   = var.sync_policy.automated.self_heal
-              allow_empty = var.sync_policy.automated.allow_empty
+              prune       = var.sync_policy.prune
+              self_heal   = var.sync_policy.self_heal
+              allow_empty = var.sync_policy.allow_empty
             }
           }
           managed_namespace_metadata {

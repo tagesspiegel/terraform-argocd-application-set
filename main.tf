@@ -1,5 +1,6 @@
 locals {
-  generator_selector = var.generator_segment_index_overwrite == null ? ".path.basenameNormalized" : "(index .path.segments ${var.generator_segment_index_overwrite})"
+  cluster_identifier = var.generator_segment_index_overwrite == null ? ".path.basenameNormalized" : "(index .path.segments ${var.generator_segment_index_overwrite})"
+  resource_name = "${local.cluster_identifier}${var.application_name_suffix != "" ? "-${var.application_name_suffix}" : ""}"
 }
 
 resource "argocd_application_set" "this" {
@@ -52,7 +53,7 @@ resource "argocd_application_set" "this" {
       metadata {
         // application names are in the format: <name>-<cluster>
         // e.g. prometheus-staging
-        name = "${var.name}-{{ ${local.generator_selector} }}"
+        name = "${var.name}-{{ ${local.resource_name} }}"
         annotations = merge(
           var.annotations,
           {
@@ -101,7 +102,7 @@ resource "argocd_application_set" "this" {
         }
 
         destination {
-          name = "{{ if (eq ${local.generator_selector} \"general-purpose\") }}in-cluster{{ else }}{{ ${local.generator_selector} }}{{ end }}"
+          name = "{{ if (eq ${local.cluster_identifier} \"general-purpose\") }}in-cluster{{ else }}{{ ${local.cluster_identifier} }}{{ end }}"
           // if the target_namespace_overwrite is not empty, then we want to use it as the namespace
           // (e.g. ingress-controllers (assuming "ingress-controllers" is the target_namespace_overwrite))
           // otherwise we check if the configuration provided by the developer has a namespace_overwrite
@@ -109,7 +110,7 @@ resource "argocd_application_set" "this" {
           // (e.g. background-staging (assuming "background" is the project and "staging" the folder name))
           // otherwise we use the namespace_overwrite provided by the developer
           // (e.g. background-staging-v2 (assuming "background" is the project and "staging-v2" the namespace_overwrite))
-          namespace = var.target_namespace_overwrite != "" ? var.target_namespace_overwrite : "{{ if not .namespace_overwrite }}${var.project_name}-{{ ${local.generator_selector} }}{{ else }}${var.project_name}-{{ .namespace_overwrite }}{{ end }}"
+          namespace = var.target_namespace_overwrite != "" ? var.target_namespace_overwrite : "{{ if not .namespace_overwrite }}${var.project_name}-{{ ${local.resource_name} }}{{ else }}${var.project_name}-{{ .namespace_overwrite }}{{ end }}"
         }
         sync_policy {
           dynamic "automated" {

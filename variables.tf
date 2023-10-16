@@ -140,6 +140,12 @@ variable "generator_segment_index_overwrite" {
   default     = null
 }
 
+variable "application_name_suffix" {
+  type        = string
+  description = "Optional suffix to add to the application name. This is useful if you want to deploy the same application multiple times to the same cluster. The suffix is added to the application name after the cluster name. e.g. prometheus-staging-<suffix>. ArgoCD based gotemplating is supported. e.g. {{ index .path.segments 2 }}"
+  default     = null
+}
+
 variable "sync_policy" {
   type = object({
     prune       = bool

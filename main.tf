@@ -1,6 +1,6 @@
 locals {
   cluster_identifier = var.generator_segment_index_overwrite == null ? ".path.basenameNormalized" : "(index .path.segments ${var.generator_segment_index_overwrite})"
-  resource_name      = "${local.cluster_identifier}${var.application_name_suffix != "" ? "-${var.application_name_suffix}" : ""}"
+  resource_name      = "{{ ${local.cluster_identifier} }}${var.application_name_suffix != "" ? "-${var.application_name_suffix}" : ""}"
 }
 
 resource "argocd_application_set" "this" {
@@ -53,7 +53,7 @@ resource "argocd_application_set" "this" {
       metadata {
         // application names are in the format: <name>-<cluster>
         // e.g. prometheus-staging
-        name = "${var.name}-{{ ${local.resource_name} }}"
+        name = "${var.name}-${local.resource_name}"
         annotations = merge(
           var.annotations,
           {
@@ -110,7 +110,7 @@ resource "argocd_application_set" "this" {
           // (e.g. background-staging (assuming "background" is the project and "staging" the folder name))
           // otherwise we use the namespace_overwrite provided by the developer
           // (e.g. background-staging-v2 (assuming "background" is the project and "staging-v2" the namespace_overwrite))
-          namespace = var.target_namespace_overwrite != "" ? var.target_namespace_overwrite : "{{ if not .namespace_overwrite }}${var.project_name}-{{ ${local.resource_name} }}{{ else }}${var.project_name}-{{ .namespace_overwrite }}{{ end }}"
+          namespace = var.target_namespace_overwrite != "" ? var.target_namespace_overwrite : "{{ if not .namespace_overwrite }}${var.project_name}-${local.resource_name}{{ else }}${var.project_name}-{{ .namespace_overwrite }}{{ end }}"
         }
         sync_policy {
           dynamic "automated" {

@@ -166,5 +166,5 @@ variable "ignore_difference" {
     namespace           = optional(string)
   }))
   description = "A list of object kinds to ignore during the diff process. This is useful if you want to ignore certain differences between the application set and the cluster. e.g. if you want to ignore differences in the namespace labels."
-  default     = []
+  default     = null
 }

@@ -155,3 +155,16 @@ variable "sync_policy" {
   description = "ArgoCD sync policy configuration"
   default     = null
 }
+
+variable "ignore_difference" {
+  type = list(object({
+    group               = optional(string)
+    jq_path_expressions = optional(list(string))
+    json_pointers       = optional(list(string))
+    kind                = optional(string)
+    name                = optional(string)
+    namespace           = optional(string)
+  }))
+  description = "A list of object kinds to ignore during the diff process. This is useful if you want to ignore certain differences between the application set and the cluster. e.g. if you want to ignore differences in the namespace labels."
+  default     = []
+}

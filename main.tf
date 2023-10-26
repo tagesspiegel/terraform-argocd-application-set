@@ -101,6 +101,19 @@ resource "argocd_application_set" "this" {
           }
         }
 
+        dynamic "ignore_difference" {
+          // to protect against null values, we need to check if the ignore_difference block is not null
+          for_each = var.ignore_difference != null ? var.ignore_difference : []
+          content {
+            group               = ignore_difference.value.group
+            jq_path_expressions = ignore_difference.value.jq_path_expressions
+            json_pointers       = ignore_difference.value.json_pointers
+            kind                = ignore_difference.value.kind
+            name                = ignore_difference.value.name
+            namespace           = ignore_difference.value.namespace
+          }
+        }
+
         destination {
           name = "{{ if (eq ${local.cluster_identifier} \"general-purpose\") }}in-cluster{{ else }}{{ ${local.cluster_identifier} }}{{ end }}"
           // if the target_namespace_overwrite is not empty, then we want to use it as the namespace

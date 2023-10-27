@@ -2,18 +2,18 @@
 # Manual edits may be lost in future updates.
 
 provider "registry.terraform.io/oboukili/argocd" {
-  version     = "6.0.1"
-  constraints = "6.0.1"
+  version     = "6.0.3"
+  constraints = "6.0.3"
   hashes = [
-    "h1:eHML0bkbdfQE2YGiRq7gUQ06euIWx8KqVJOLAZiD3ZI=",
-    "zh:3cf08902df7eb452f33456076acf08e01d026e854824507c1ae3290d249f0cbd",
-    "zh:5a44f1d8f3ac153837b73a0c0d42ed9e559fbbb87b0a780af5525de4077a2ee4",
-    "zh:7cf42c6af5c395b4ae99d9ecdc1cec1bdd6b6cbfcee573a1ee2ae03fd4048e2e",
-    "zh:99412d15994442274716228990ef3a29aeebd56c2d45786c4b6443b7ddfb8e48",
-    "zh:99c13b2372fc4fb31e2ae77b73a37ec3bcdffb2bafa8a23bc5da7c7e5026ee7c",
-    "zh:b50e2b3cc653e35b7c4f4521602524781010f0f3a76285a7e1e08a7db308cd5c",
-    "zh:ca04f381e10bb8ba93e8bd6cbf88ec5b06dc21789f4f3b1c95cc9e87977224b0",
-    "zh:dbad7c9f5bc0e8eddf9304f027e5b7e4527a88da7223181b1eb7828c7c005b3f",
-    "zh:e1b0cbd1a9a2ccef34188cab7de783a2c33aa88e042ad6d3fbcb9b88f80b5d2c",
+    "h1:RDd6Xx9cB6KTHRnXEaaXPvA5QjrNV414sgdqk9yrFMA=",
+    "zh:45609fb6167e6e54b076e80309d3319b8673b559504d277bbffcab4fde8225b0",
+    "zh:5e012a689df68fcac4292937a8fa8c701b2ff0d64b558d727b32f051e8e34171",
+    "zh:647a84ceb10650381d1dfe0d73ff389a0325d5077fafb049a67a705af621341c",
+    "zh:6ae3986c1554b3ff408d70aef1d7ae45126b912d0e1bddc2b26b1dde833d40c0",
+    "zh:a11dc01833e609e0e45a8984723ab400d394d3d0b3166dc418e6226715125e44",
+    "zh:a471c8db6fb91075040d41248a230cebe67e6f30f5a068b48ea2973deae82575",
+    "zh:a7d9c5b6bebe64a37549d477cb33283068023e09832778e16c3f6503c90779a8",
+    "zh:b09abfb0233d9e3e4fcef505ddbd19fffbd1a54d17b5cbe10e2ca47d46228ed6",
+    "zh:b470c2c7e1cbcff772f483a5341470ff2451d92ea9fbfbba7f63ec04aa7e65f8",
   ]
 }

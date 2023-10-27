@@ -66,13 +66,7 @@ resource "argocd_application_set" "this" {
             for k, v in var.env_context_annotations : k => <<EOF
 {{- $applicationName := "${var.name}" }}
 {{- $resourceName := "${local.resource_name}" }}
-{{- $cluster := "" }}
-{{- if eq (index .Path.Segments 1) "general-purpose" }}
-{{- $cluster = "in-cluster" }}
-{{- else }}
-{{- $cluster = (index .Path.Segments 1) }}
-{{- end }}
-${v}
+{{- $cluster := "" }}{{ if eq (index .Path.Segments 1) "general-purpose" }}{{ $cluster = "in-cluster" }}{{ else }}{{ $cluster = (index .Path.Segments 1) }}{{ end }}${v}
 EOF
           }
         )

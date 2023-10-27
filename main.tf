@@ -1,6 +1,6 @@
 locals {
   cluster_identifier = var.generator_segment_index_overwrite == null ? ".path.basenameNormalized" : "(index .path.segments ${var.generator_segment_index_overwrite})"
-  resource_name      = "{{ ${local.cluster_identifier} }}${var.application_name_suffix != "" ? "-${var.application_name_suffix}" : ""}"
+  resource_name      = "{{ ${local.cluster_identifier} }}${var.application_name_suffix != null ? "-${var.application_name_suffix}" : ""}"
 
   json_encoded_env_based_annotations = jsonencode(var.env_context_annotations)
 }

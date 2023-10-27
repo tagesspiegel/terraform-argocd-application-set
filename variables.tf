@@ -172,5 +172,5 @@ variable "ignore_difference" {
 variable "env_context_annotations" {
   type        = map(string)
   description = "A map of annotations that are rendered via go template. Available variables are cluster, resourceName and applicationName. You can access the variables using go templating. e.g. {{ $cluster }}, {{ $resourceName }}, {{ $applicationName }}"
-  default = {}
+  default     = {}
 }

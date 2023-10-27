@@ -168,3 +168,9 @@ variable "ignore_difference" {
   description = "A list of object kinds to ignore during the diff process. This is useful if you want to ignore certain differences between the application set and the cluster. e.g. if you want to ignore differences in the namespace labels."
   default     = null
 }
+
+variable "env_context_annotations" {
+  type        = map(string)
+  description = "A map of annotations that are rendered via go template. Available variables are cluster, resourceName and applicationName. You can access the variables using go templating. e.g. {{ $cluster }}, {{ $resourceName }}, {{ $applicationName }}"
+  default     = {}
+}

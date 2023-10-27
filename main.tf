@@ -1,6 +1,8 @@
 locals {
   cluster_identifier = var.generator_segment_index_overwrite == null ? ".path.basenameNormalized" : "(index .path.segments ${var.generator_segment_index_overwrite})"
   resource_name      = "{{ ${local.cluster_identifier} }}${var.application_name_suffix != "" ? "-${var.application_name_suffix}" : ""}"
+
+  json_encoded_env_based_annotations = jsonencode(var.env_context_annotations)
 }
 
 resource "argocd_application_set" "this" {
@@ -60,6 +62,9 @@ resource "argocd_application_set" "this" {
             "managed-by"      = "argo-cd",
             "application-set" = var.name
           },
+          {
+            for k, v in var.env_context_annotations : k => "{{ $applicationName := \"${var.name}\" }}{{ $resourceName := \"${local.resource_name}\" }}{{ $cluster := \"\" }}{{ if eq (index .Path.Segments 1) \"general-purpose\" }}{{ $cluster = \"in-cluster\" }}{{ else }}{{ $cluster = (index .Path.Segments 1) }}{{ end }}${v}"
+          }
         )
         labels = merge(
           var.labels,

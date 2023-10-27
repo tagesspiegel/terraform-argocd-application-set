@@ -34,4 +34,17 @@ module "example" {
     self_heal   = true
     allow_empty = true
   }
+  env_context_annotations = {
+    "argocd-image-updater.argoproj.io/image-list" = "xyz=tagesspiegel/xyz"
+    "argocd-image-updater.argoproj.io/xyz.update-strategy" = "latest"
+    "argocd-image-updater.argoproj.io/xyz.allow-tags" = <<EOT
+{{- if eq $cluster "staging" }}
+regex:v[0-9]{1,}.[0-9]{1,}.[0-9]{1,}-rc.[0-9]{1,}
+{{- else if eq $cluster "production" }}
+regex:v[0-9]{1,}.[0-9]{1,}.[0-9]{1,}
+{{- else }}
+develop
+{{- end }}"
+EOT
+  }
 }

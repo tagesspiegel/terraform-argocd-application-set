@@ -21,7 +21,7 @@ module "example" {
     }
   }
   generator_segment_index_overwrite = 1
-  application_name_suffix = "{{ index .path.segments 2 }}"
+  application_name_suffix = null
   annotations = {
     "argocd.argoproj.io/sync-wave" = "2",
   }

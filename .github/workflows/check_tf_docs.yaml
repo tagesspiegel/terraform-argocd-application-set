@@ -1,0 +1,14 @@
+name: Check if terraform docs are updated
+on: pull_request
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+      - name: Check if terraform docs inside the README.md are updated
+        uses: terraform-docs/gh-actions@v1.0.0
+        with:
+          working-dir: .
+          fail-on-diff: true

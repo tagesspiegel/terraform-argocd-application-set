@@ -63,7 +63,7 @@ resource "argocd_application_set" "this" {
             "application-set" = var.name
           },
           {
-            for k, v in var.env_context_annotations : k => "{{ $applicationName := \"${var.name}\" }}{{ $resourceName := \"${local.resource_name}\" }}{{ $cluster := \"\" }}{{ if eq (index .Path.Segments 1) \"general-purpose\" }}{{ $cluster = \"in-cluster\" }}{{ else }}{{ $cluster = (index .Path.Segments 1) }}{{ end }}${v}"
+            for k, v in var.env_context_annotations : k => "{{ $applicationName := \"${var.name}\" }}{{ $resourceName := \"${local.resource_name}\" }}{{ $cluster := \"\" }}{{ if eq ${local.cluster_identifier} \"general-purpose\" }}{{ $cluster = \"in-cluster\" }}{{ else }}{{ $cluster = ${local.cluster_identifier} }}{{ end }}${v}"
           }
         )
         labels = merge(

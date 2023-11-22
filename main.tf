@@ -128,7 +128,7 @@ resource "argocd_application_set" "this" {
           // (e.g. background-staging (assuming "background" is the project and "staging" the folder name))
           // otherwise we use the namespace_overwrite provided by the developer
           // (e.g. background-staging-v2 (assuming "background" is the project and "staging-v2" the namespace_overwrite))
-          namespace = var.target_namespace_overwrite != "" ? var.target_namespace_overwrite : "{{ if not .namespace_overwrite }}${var.project_name}-${local.resource_name}{{ else }}${var.project_name}-{{ .namespace_overwrite }}{{ end }}"
+          namespace = var.target_namespace_overwrite != "" ? var.target_namespace_overwrite : "{{ if not .namespace_overwrite }}${var.project_name}-${local.resource_name}{{ else }}{{ .namespace_overwrite }}{{ end }}"
         }
         sync_policy {
           dynamic "automated" {

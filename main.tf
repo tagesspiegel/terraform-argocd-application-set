@@ -90,6 +90,9 @@ resource "argocd_application_set" "this" {
             helm {
               release_name = "{{ default \"${var.manifest_source.helm.release_name}\" .chart.release_name }}"
               values       = "{{ .values }}"
+              // optional properties only if the git generator is not null
+              value_files                = var.generator.git != null ? ["$values/{{ .path.path }}/values/{{ default \"${var.manifest_source.helm.release_name}\" .chart.release_name | replace \"-\" \"_\"}}.yaml"] : []
+              ignore_missing_value_files = var.generator.git != null ? true : false
             }
           }
         }
@@ -103,6 +106,14 @@ resource "argocd_application_set" "this" {
               include = var.manifest_source.directory.glob_path
               recurse = true
             }
+          }
+        }
+        dynamic "source" {
+          for_each = var.generator.git != null ? [var.generator.git] : []
+          content {
+            repo_url        = var.generator.git.repo_url
+            target_revision = var.generator.git.revision
+            ref             = "values"
           }
         }
 

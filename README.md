@@ -38,6 +38,17 @@ module "namespace-management" {
 }
 ```
 
+### With values.yaml
+
+From module version `v1.4.0` we also support the usage of a `values.yaml` file. By default, if you configured the git generator, we will look for a `values.yaml` inside the `values` folder next to the configured argocd application configuration. The `values.yaml` file will be named after the Helm release name (dashes are replaced by underscores).
+
+```txt
+|--- argo
+|    |--- values
+|    |    |--- argocd.yaml
+|    |--- argocd.yaml (chart.release_name: argocd)
+```
+
 ## Cluster selection
 
 The cluster selection is based on the ``

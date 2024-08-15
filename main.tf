@@ -132,14 +132,20 @@ resource "argocd_application_set" "this" {
 
         destination {
           name = "{{ if (eq ${local.cluster_identifier} \"general-purpose\") }}in-cluster{{ else }}{{ ${local.cluster_identifier} }}{{ end }}"
-          // if the target_namespace_overwrite is not empty, then we want to use it as the namespace
-          // (e.g. ingress-controllers (assuming "ingress-controllers" is the target_namespace_overwrite))
-          // otherwise we check if the configuration provided by the developer has a namespace_overwrite
-          // if the namespace_overwrite is not set, then we use the namespace based on the project name and git folder name
-          // (e.g. background-staging (assuming "background" is the project and "staging" the folder name))
-          // otherwise we use the namespace_overwrite provided by the developer
-          // (e.g. background-staging-v2 (assuming "background" is the project and "staging-v2" the namespace_overwrite))
-          namespace = var.target_namespace_overwrite != "" ? var.target_namespace_overwrite : "{{ if not .namespace_overwrite }}${var.project_name}-${local.resource_name}{{ else }}{{ .namespace_overwrite }}{{ end }}"
+          // if the namespace_overwrite in the values file is not null, then we want to use that value
+          // Otherwise, if the target_namespace_overwrite terraform variable is not null, then we want to use that value
+          // Otherwise, we automatically generate the namespace based on the project name and the resource name
+          namespace = <<EOT
+{{- if .namespace_overwrite }}
+  {{- .namespace_overwrite }}
+{{- else }}
+  {{- if ne \"${var.target_namespace_overwrite}\" \"\" }}
+    ${var.target_namespace_overwrite}
+  {{- else }}
+    ${var.project_name}-${local.resource_name}
+  {{- end }}
+{{- end }}"
+EOT
         }
         sync_policy {
           dynamic "automated" {

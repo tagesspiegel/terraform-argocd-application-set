@@ -144,7 +144,7 @@ resource "argocd_application_set" "this" {
   {{- else }}
     ${var.project_name}-${local.resource_name}
   {{- end }}
-{{- end }}"
+{{- end -}}
 EOT
         }
         sync_policy {

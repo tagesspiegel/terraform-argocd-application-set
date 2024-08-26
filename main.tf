@@ -140,9 +140,9 @@ resource "argocd_application_set" "this" {
   {{- .namespace_overwrite }}
 {{- else }}
   {{- if ne "${var.target_namespace_overwrite}" "" }}
-    ${var.target_namespace_overwrite}
+    {{- print "${var.target_namespace_overwrite}" }}
   {{- else }}
-    ${var.project_name}-${local.resource_name}
+    {{- print "${var.project_name}-${local.resource_name}" }}
   {{- end }}
 {{- end -}}
 EOT

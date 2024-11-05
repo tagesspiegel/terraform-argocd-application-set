@@ -58,13 +58,13 @@ The cluster selection is based on the ``
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_argocd"></a> [argocd](#requirement\_argocd) | 6.1.1 |
+| <a name="requirement_argocd"></a> [argocd](#requirement\_argocd) | 6.2.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_argocd"></a> [argocd](#provider\_argocd) | 6.1.1 |
+| <a name="provider_argocd"></a> [argocd](#provider\_argocd) | 6.2.0 |
 
 ## Modules
 
@@ -74,7 +74,7 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [argocd_application_set.this](https://registry.terraform.io/providers/oboukili/argocd/6.1.1/docs/resources/application_set) | resource |
+| [argocd_application_set.this](https://registry.terraform.io/providers/oboukili/argocd/6.2.0/docs/resources/application_set) | resource |
 
 ## Inputs
 

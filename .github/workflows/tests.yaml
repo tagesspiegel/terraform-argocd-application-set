@@ -20,7 +20,7 @@ jobs:
       - name: Comment PR
         if: (steps.init.outcome == 'failure' || steps.fmt.outcome == 'failure' || steps.validate.outcome == 'failure') &&
           github.event_name == 'pull_request'
-        uses: thollander/actions-comment-pull-request@v2
+        uses: thollander/actions-comment-pull-request@v3
         with:
           pr-number: ${{ github.event.pull_request.number }}
           comment-tag: test-chart

@@ -22,8 +22,8 @@ jobs:
           github.event_name == 'pull_request'
         uses: thollander/actions-comment-pull-request@v2
         with:
-          pr_number: ${{ github.event.pull_request.number }}
-          comment_tag: test-chart
+          pr-number: ${{ github.event.pull_request.number }}
+          comment-tag: test-chart
           message: |-
             # :x: Terraform Linting, Formatting or Init Failed
 
